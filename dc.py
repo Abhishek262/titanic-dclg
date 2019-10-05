@@ -23,7 +23,7 @@ def titanic_data_clean(dataset) :
     
     #create categorical variables and drop some variables
     dataset=pd.get_dummies(dataset, columns=["Pclass","Embarked"])
-    
+    #Selects all rows where age <=16
     dataset['IsMinor']=np.where(dataset['Age']<=16, 1, 0)
     
     return dataset
