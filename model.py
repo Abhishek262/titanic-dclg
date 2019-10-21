@@ -59,6 +59,17 @@ y_test = model.predict(x_test)
 
 dump_predicted_scores(pid_test,y_test)
 
+# To understand the effect of the attributes before and after
+np.random.seed(0)
+X, y = x[final_features],y
+indices = np.arange(y.shape[0])
+np.random.shuffle(indices)
+X, y = X[indices], y[indices]
+train_scores, valid_scores = validation_curve(Ridge(), X, y, "alpha",np.logspace(-7, 3, 3),cv=5)    #Using the final features of x
+
+train_scores_uc, valid_scores_uc = validation_curve(Ridge(), x, y, "alpha",np.logspace(-7, 3, 3),cv=5)  #Using the entirety of x
+
+
 
 
 
