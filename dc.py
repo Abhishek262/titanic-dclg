@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 
 #data cleaning
-def titanic_data_clean(dataset) : 
+def titanic_data_clean(dataset) :     
     
     dataset.replace({'male':0,'female':1},inplace = True)
     dataset.rename({"Sex":"IsFemale"},axis = 1,inplace = True)
-    
+ 
     #drop useless columns
     dataset.drop(["PassengerId","Name","Ticket","Cabin"],axis = 1,inplace = True)
             
@@ -23,9 +23,8 @@ def titanic_data_clean(dataset) :
     
     #create categorical variables and drop some variables
     dataset=pd.get_dummies(dataset, columns=["Pclass","Embarked"])
+    
     #Selects all rows where age <=16
     dataset['IsMinor']=np.where(dataset['Age']<=16, 1, 0)
     
     return dataset
-
-
