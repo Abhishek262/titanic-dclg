@@ -7,13 +7,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE,RFECV
 from sklearn.metrics import accuracy_score, classification_report, precision_score, recall_score 
 
-
 def feature_elimination(model,x,y,n_features_to_select = 0,type ="RFE") : 
     if(type=="RFE"):
         rfe = RFE(model,n_features_to_select)
         rfe = rfe.fit(x,y)
         return n_features_to_select,list(x.columns[rfe.support_])
-    
     elif(type=="RFECV"):
         rfecv = RFECV(estimator = model,step = 1,cv = 10,scoring = 'accuracy')
         rfecv.fit(x,y)
@@ -21,11 +19,9 @@ def feature_elimination(model,x,y,n_features_to_select = 0,type ="RFE") :
     else:
         raise TypeError
         
-        
 def dump_predicted_scores(pid_test,y_pred):
     df = pd.DataFrame({'PassengerId':pid_test,'Survived':y_pred})
     df.to_csv('Predicted.csv',index = False)
-
 
 df_train = pd.read_csv("titanic/train.csv")
 df_test = pd.read_csv("titanic/test.csv")
@@ -50,10 +46,3 @@ np.random.shuffle(indices)
 X, y = X[indices], y[indices]
 train_scores, valid_scores = validation_curve(Ridge(), X, y, "alpha",np.logspace(-7, 3, 3),cv=5) 
 train_scores_uc, valid_scores_uc = validation_curve(Ridge(), x, y, "alpha",np.logspace(-7, 3, 3),cv=5) 
-
-
-
-
-
-
-
